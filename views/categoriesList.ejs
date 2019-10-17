@@ -1,0 +1,45 @@
+<%- include header.ejs %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+
+    </div>
+    <div class="col-sm-8">
+      <br>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <% _.each(breadcrumbs, function(breadcrumb) { %>
+            <li class="breadcrumb-item"><a href="<%= breadcrumb.link; %>"><%= breadcrumb.name; %></a></li>
+          <% }); %>
+        </ol>
+      </nav>
+      <h1><%= category.name; %></h1>
+      <p><%= category.page_description; %></p>
+    </div>
+    <div class="col-sm">
+      <% for(i = 0; i < category.length; i++) { %>
+        <p><%= category[i].name; %></p>
+      <% } %>
+    </div>
+  </div>
+  <% _.each(category.categories, function(subCategory) { %>
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title"><a href="/categories/<%= category._id; %>/<%= category.name; %>/<%= subCategory.id; %>/<%= subCategory.name; %>"><%= subCategory.name; %></a></h2>
+            <% if (subCategory.image) { %>
+              <img src="/images/<%= subCategory.image; %>" alt="<%= subCategory.name %>" class="card-img" />
+            <% }%>
+            <p class="card-text-center"><%= subCategory.page_description; %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+      </div>
+    </div>
+  <% }); %>
+  </div>
+</div>
+<%- include footer.ejs %>

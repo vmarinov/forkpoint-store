@@ -1,0 +1,44 @@
+<%- include header.ejs %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-5">
+      <br>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <% _.each(breadcrumbs, function(breadcrumb) { %>
+            <li class="breadcrumb-item"><a href="<%= breadcrumb.link; %>"><%= breadcrumb.name; %></a></li>
+          <% }); %>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-5">
+      <img src="/images/<%= product.image_groups[1].images[0].link; %>" alt="<%= product.image_groups[1].images[0].alt; %>" class="rounded float-left" />
+    </div>
+    <div class="col-sm-6">
+      <h3><%= product.name; %></h3>
+      <p><%= product.page_description; %></p>
+      <div class="row">
+        <div class="col-sm-6">
+          <a href="#" class="btn btn-danger">Buy now</a>
+        </div>
+
+        <div class="col-sm-6">
+          Price: <%= product.price.toFixed(2); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include footer.ejs %>

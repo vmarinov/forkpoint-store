@@ -1,0 +1,44 @@
+<%- include header.ejs %>
+<div class="container-fluid">
+  <br />
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <% _.each(breadcrumbs, function(breadcrumb) { %>
+          <li class="breadcrumb-item"><a href="<%= breadcrumb.link; %>"><%= breadcrumb.name; %></a></li>
+        <% }); %>
+      </ol>
+    </nav>
+  </div>
+  <div class="row">
+    <br>
+  <% _.each(products, function(product){ %>
+    <div class="col-sm-6">
+      <div class="card" style="width: 34rem; height: 20rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= product.name; %></h5>
+          <div class="row">
+            <% if(product.image_groups[0]) { %>
+              <div class="col-sm-4">
+                <img src="/images/<%= product.image_groups[2].images[0].link; %>" alt="<%= product.image_groups[2].images[0].alt; %>" class="card-img-left img-thumbnail" />
+              </div>
+            <% } %>
+            <div class="col-sm-8">
+              <p class="card-text"><%= product.page_description; %></p>
+              <div class="row">
+                <div class="col-sm-6">
+                  <span>Price: $ <%= product.price.toFixed(2); %></span>
+                </div>
+                <div class="col-sm-6">
+                  <span><a href="/product/<%= product.name; %>/<%= product._id; %>" class="btn btn-primary">More info</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% }); %>
+  </div>
+</div>
+<%- include footer.ejs %>

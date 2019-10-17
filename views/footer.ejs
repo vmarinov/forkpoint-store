@@ -1,0 +1,18 @@
+  <footer class="footer mt-auto py-3">
+      <div class="card">
+        <div class="card-body">
+          <span class="card-title"><%= copyright ;%></span>
+        </div>
+      </div>
+  </footer>
+    <script src="/jquery/jquery-3.4.1.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script type="text/javascript">
+      $(".nav-link").on("click", function(){
+       $(".nav-link").find(".active").removeClass("active");
+       $(this).addClass("active");
+      });
+    </script>
+    </body>
+</html>
