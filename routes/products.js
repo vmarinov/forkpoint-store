@@ -5,6 +5,8 @@ const router = express.Router();
 
 const { ProductModel } = require('../components/products/productModel');
 
+const currenciesService = require('../components/currencies/currenciesService');
+
 router.get('/:id/:name/products', async (req, res, next) => {
   try {
     const categoryId = req.params.id;
@@ -17,11 +19,14 @@ router.get('/:id/:name/products', async (req, res, next) => {
       },
       {
         link: req.originalUrl,
-        name: categoryName[0].toUpperCase() + categoryName.slice(1),
+        name: (categoryName[0].toUpperCase() + categoryName.slice(1)).replace(/-/g, ' '),
       },
     ];
     res.render('productsList', {
-      title: categoryId, _, products, breadcrumbs,
+      title: categoryId,
+      _,
+      products,
+      breadcrumbs,
     });
   } catch (e) {
     next(e);
@@ -40,14 +45,44 @@ router.get('/product/:name/:id', async (req, res, next) => {
       },
       {
         link: req.originalUrl,
-        name: productName[0].toUpperCase() + productName.slice(1),
+        name: (productName[0].toUpperCase() + productName.slice(1)).replace(/-/g, ' '),
       },
     ];
     res.render('productDetail', {
-      title: product.name, _, product, breadcrumbs,
+      title: product.name,
+      _,
+      product,
+      breadcrumbs,
     });
   } catch (e) {
     next(e);
+  }
+});
+
+router.post('/product/:name/:id', async (req, res) => {
+  const { currencyCode } = req.body;
+  const { price } = req.body;
+  let rate = 0;
+  let convertedPrice = 0;
+  const regEx = /\b[a-zA-Z0-9]{3}\b|\b[a-zA-Z0-9]{3}\b/;
+  if (!regEx.test(currencyCode) || Number.isNaN(price)) {
+    res.json('invalid currency code');
+  } else {
+    currenciesService
+      .getRateByCurrencyCode(currencyCode)
+      .then(
+        (result) => {
+          rate = result.getlatestvalueResult;
+          convertedPrice = price * rate;
+          res.json(convertedPrice.toFixed(2));
+        },
+        (err) => {
+          throw new Error(err);
+        },
+      )
+      .catch((err) => {
+        throw new Error(err);
+      });
   }
 });
 

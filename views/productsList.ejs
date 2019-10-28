@@ -30,7 +30,7 @@
                   <span>Price: $ <%= product.price.toFixed(2); %></span>
                 </div>
                 <div class="col-sm-6">
-                  <span><a href="/product/<%= product.name; %>/<%= product._id; %>" class="btn btn-primary">More info</a></span>
+                  <span><a href="/product/<%= product.name.replace(/ /g, '-'); %>/<%= product._id; %>" class="btn btn-primary">More info</a></span>
                 </div>
               </div>
             </div>

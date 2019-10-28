@@ -21,7 +21,6 @@
   </div>
   <div class="row">
     <div class="col-sm-1">
-
     </div>
     <div class="col-sm-5">
       <img src="/images/<%= product.image_groups[1].images[0].link; %>" alt="<%= product.image_groups[1].images[0].alt; %>" class="rounded float-left" />
@@ -29,15 +28,23 @@
     <div class="col-sm-6">
       <h3><%= product.name; %></h3>
       <p><%= product.page_description; %></p>
-      <div class="row">
-        <div class="col-sm-6">
+    <div class="row">
+        <div class="col-sm-46">
           <a href="#" class="btn btn-danger">Buy now</a>
         </div>
 
-        <div class="col-sm-6">
-          Price: <%= product.price.toFixed(2); %>
+        <div class="col-sm-4">
+          <input type="hidden" name="unconvertedPrice" value="<%= product.price.toFixed(2); %>">
+          <span name="price">Price: <%= product.price.toFixed(2); %></span>
         </div>
-      </div>
+        <div class="col-sm-4">
+          <select class="custom-select" name="currencies">
+            <option value=" ">Currencies</option>
+            <option value="BGN">BGN</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
     </div>
   </div>
 </div>

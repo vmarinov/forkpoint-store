@@ -30,7 +30,7 @@
               <img src="/images/<%= category[i].image; %>" alt="<%= category[i].name %>" class="card-img" />
             <% }%>
             <p class="card-text-center"><%= category[i].page_description; %></p>
-            <a href="/<%= category[i].id; %>/<%= category[i].name; %>/products" class="btn btn-primary">View Products</a>
+            <a href="/<%= category[i].id; %>/<%= category[i].name.replace(/ /g, '-').replace('&', 'and'); %>/products" class="btn btn-primary">View Products</a>
           </div>
         </div>
       </div>
