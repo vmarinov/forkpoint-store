@@ -38,7 +38,7 @@
         <span name="price">Price: <%= product.price.toFixed(2); %></span>
       </div>
       <div class="col-sm-4">
-        <select class="custom-select" name="currencies" onchange="convertPrice(this.value);">
+        <select class="custom-select" name="currencies">
           <option value="0">Currencies</option>
           <% for(let i=0; i < currenciesAndRates.length; i++) { %>
             <option value="<%= currenciesAndRates[i]["Value"]; %>"><%= currenciesAndRates[i]["IDMoneda"]; %></option>
