@@ -32,4 +32,14 @@ function getAllCurrencyCodesAndRates(date) {
   );
 }
 
-module.exports = { getRateByCurrencyCode, getAllCurrencyCodesAndRates };
+function getLastDateInserted() {
+  return currenciesClient().then(
+    (client) => new Promise(
+      (reject, resolve) => client.lastdateinserted(
+        {}, (result, err) => (err ? reject(err) : resolve(result)),
+      ),
+    ),
+  );
+}
+
+module.exports = { getRateByCurrencyCode, getAllCurrencyCodesAndRates, getLastDateInserted };

@@ -29,22 +29,22 @@
       <h3><%= product.name; %></h3>
       <p><%= product.page_description; %></p>
     <div class="row">
-        <div class="col-sm-46">
-          <a href="#" class="btn btn-danger">Buy now</a>
-        </div>
+      <div class="col-sm-46">
+        <a href="#" class="btn btn-danger">Buy now</a>
+      </div>
 
-        <div class="col-sm-4">
-          <input type="hidden" name="unconvertedPrice" value="<%= product.price.toFixed(2); %>">
-          <span name="price">Price: <%= product.price.toFixed(2); %></span>
-        </div>
-        <div class="col-sm-4">
-          <select class="custom-select" name="currencies">
-            <option value=" ">Currencies</option>
-            <option value="BGN">BGN</option>
-            <option value="EUR">EUR</option>
-            <option value="USD">USD</option>
-          </select>
-        </div>
+      <div class="col-sm-4">
+        <input type="hidden" name="unconvertedPrice" value="<%= product.price.toFixed(2); %>">
+        <span name="price">Price: <%= product.price.toFixed(2); %></span>
+      </div>
+      <div class="col-sm-4">
+        <select class="custom-select" name="currencies" onchange="convertPrice(this.value);">
+          <option value="0">Currencies</option>
+          <% for(let i=0; i < currenciesAndRates.length; i++) { %>
+            <option value="<%= currenciesAndRates[i]["Value"]; %>"><%= currenciesAndRates[i]["IDMoneda"]; %></option>
+          <% } %>
+        </select>
+      </div>
     </div>
   </div>
 </div>

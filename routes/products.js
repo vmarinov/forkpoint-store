@@ -48,12 +48,39 @@ router.get('/product/:name/:id', async (req, res, next) => {
         name: (productName[0].toUpperCase() + productName.slice(1)).replace(/-/g, ' '),
       },
     ];
-    res.render('productDetail', {
-      title: product.name,
-      _,
-      product,
-      breadcrumbs,
-    });
+    currenciesService
+      .getLastDateInserted()
+      .then(
+        (date) => {
+          const lastDateInserted = new Date(date.lastdateinsertedResult);
+          const formattedDate = `${lastDateInserted.getFullYear()}-${lastDateInserted.getMonth()
+            + 1}-${lastDateInserted.getDate()}`;
+          currenciesService
+            .getAllCurrencyCodesAndRates(formattedDate)
+            .then(
+              (result) => {
+                const currenciesAndRates = result.getallResult.diffgram.DocumentElement.Currency;
+                res.render('productDetail', {
+                  title: product.name,
+                  _,
+                  product,
+                  breadcrumbs,
+                  currenciesAndRates,
+                });
+              },
+              (error) => { throw new Error(error); },
+            )
+            .catch((e) => {
+              throw new Error(e);
+            });
+        },
+        (error) => {
+          throw new Error(error);
+        },
+      )
+      .catch((e) => {
+        throw new Error(e);
+      });
   } catch (e) {
     next(e);
   }
